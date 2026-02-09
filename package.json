@@ -1,0 +1,15 @@
+{
+  "name": "placement-cell-hiring-intelligence-backend",
+  "version": "1.0.0",
+  "description": "Backend for Placement Cell Company & Hiring Intelligence System",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "node-cron": "^3.0.3",
+    "pg": "^8.11.5"
+  }
+}
