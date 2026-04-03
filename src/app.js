@@ -23,6 +23,7 @@ app.use("/api/jobs", jobRoutes);
 app.get("/", (req, res) => {
   res.json({ status: "Placement Cell Backend Running" });
 });
-
+// app.js — add this line
+require('./ingestion/scheduler');
 // THIS LINE IS NON-NEGOTIABLE
 module.exports = app;

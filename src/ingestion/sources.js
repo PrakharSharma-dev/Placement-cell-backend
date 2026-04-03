@@ -1,24 +1,17 @@
-/**
- * Mock external hiring sources
- * In real system → APIs, scraping, feeds
- */
-
-module.exports = [
+// src/ingestion/sources.js
+const SOURCES = [
   {
-    company_name: "TechNova",
-    company_type: "startup",
-    industry: "Software",
-    state: "Karnataka",
-    city: "Bangalore",
-    website: "https://technova.com",
-    visited_other_colleges: true,
-    job: {
-      role: "Backend Intern",
-      job_type: "internship",
-      is_paid: true,
-      location: "Remote",
-      source: "Company Website",
-      apply_url: "https://technova.com/careers"
-    }
+    name: 'Internshala',
+    url: 'https://internshala.com/internships/ajax/computer-science-internship',
+    job_type: 'internship',
+    type: 'api'   // ← flag to use API method
+  },
+  {
+    name: 'Internshala-Fulltime',
+    url: 'https://internshala.com/jobs/ajax/computer-science-jobs',
+    job_type: 'fulltime',
+    type: 'api'
   }
 ];
+
+module.exports = SOURCES;
