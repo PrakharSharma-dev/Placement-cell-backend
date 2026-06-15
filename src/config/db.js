@@ -5,24 +5,22 @@
 
 const { Pool } = require("pg");
 
-const pool = new Pool({
-  user: "postgres",
-  host: "localhost",
-  database: "placement_cell",
-  password: "prakhar",   // <-- your confirmed password
-  port: 5432
-}); 
-/*const { Pool } = require("pg");
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || undefined,
-  user: process.env.DATABASE_URL ? undefined : "postgres",
-  host: process.env.DATABASE_URL ? undefined : "localhost",
-  database: process.env.DATABASE_URL ? undefined : "placement_cell",
-  password: process.env.DATABASE_URL ? undefined : "prakhar",
-  port: process.env.DATABASE_URL ? undefined : 5432,
-  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false,
-});   */
+const pool = new Pool(
+  process.env.DATABASE_URL
+    ? {
+        // Production: Neon PostgreSQL via connection string
+        connectionString: process.env.DATABASE_URL,
+        ssl: { rejectUnauthorized: false },
+      }
+    : {
+        // Local development: hardcoded credentials
+        user: "postgres",
+        host: "localhost",
+        database: "placement_cell",
+        password: "prakhar",
+        port: 5432,
+      }
+);
 
 // 🔍 Explicit connection test (IMPORTANT)
 (async () => {
