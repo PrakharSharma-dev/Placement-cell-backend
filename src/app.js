@@ -8,13 +8,32 @@ const jobRoutes = require("./routes/job.routes");
 
 const app = express();
 
+// Dynamic CORS - handles changing Vercel preview URLs
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+];
+
 app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:3000",
-    "https://placement-cell-frontend-81ms172xd-prakhar-s-projects14.vercel.app",
-    process.env.FRONTEND_URL,
-  ].filter(Boolean),
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+
+    // Allow localhost
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+
+    // Allow ANY Vercel deployment of your frontend project
+    if (origin.match(/https:\/\/placement-cell-frontend.*\.vercel\.app$/)) {
+      return callback(null, true);
+    }
+
+    // Allow custom domain if set in env
+    if (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) {
+      return callback(null, true);
+    }
+
+    callback(new Error("Not allowed by CORS"));
+  },
   credentials: true,
 }));
 
