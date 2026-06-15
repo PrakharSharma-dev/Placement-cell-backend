@@ -12,7 +12,7 @@ app.use(cors({
   origin: [
     "http://localhost:5173",
     "http://localhost:3000",
-    "https://placement-cell-frontend-lx17rqfd4-prakhar-s-projects14.vercel.app",
+    "https://placement-cell-frontend-81ms172xd-prakhar-s-projects14.vercel.app",
     process.env.FRONTEND_URL,
   ].filter(Boolean),
   credentials: true,
