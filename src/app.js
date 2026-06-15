@@ -1,8 +1,8 @@
-/**
+/*
  * Express app configuration
  * This file ONLY creates and configures the app
  * It does NOT start the server
- */
+ 
 // src/app.js
 // This file creates and EXPORTS the Express application
 // This file creates and EXPORTS the Express application
@@ -35,4 +35,12 @@ app.get("/", (req, res) => {
 });
 
 // Scheduler is handled in server.js only - NOT here
-module.exports = app;
+module.exports = app;*/
+app.use(cors({
+  origin: [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "https://placement-cell-frontend-lx17rqfd4-prakhar-s-projects14.vercel.app/", // ← your exact frontend URL
+  ],
+  credentials: true,
+}));
