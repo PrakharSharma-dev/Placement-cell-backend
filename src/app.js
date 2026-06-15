@@ -5,6 +5,7 @@
  */
 // src/app.js
 // This file creates and EXPORTS the Express application
+// This file creates and EXPORTS the Express application
 
 const express = require("express");
 const cors = require("cors");
@@ -14,7 +15,16 @@ const jobRoutes = require("./routes/job.routes");
 
 const app = express(); // MUST be express()
 
-app.use(cors());
+// CORS - allow frontend origins
+app.use(cors({
+  origin: [
+    "http://localhost:5173",          // local Vite dev
+    "http://localhost:3000",          // alternate local
+    process.env.FRONTEND_URL,         // production frontend (set in Vercel env vars)
+  ].filter(Boolean),                  // removes undefined if FRONTEND_URL not set
+  credentials: true,
+}));
+
 app.use(express.json());
 
 app.use("/api/companies", companyRoutes);
@@ -23,7 +33,6 @@ app.use("/api/jobs", jobRoutes);
 app.get("/", (req, res) => {
   res.json({ status: "Placement Cell Backend Running" });
 });
-// app.js — add this line
-require('./ingestion/scheduler');
-// THIS LINE IS NON-NEGOTIABLE
+
+// Scheduler is handled in server.js only - NOT here
 module.exports = app;
