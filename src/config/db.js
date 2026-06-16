@@ -2,18 +2,15 @@
  * PostgreSQL connection pool
  * This file is the single source of DB truth
  */
-
 const { Pool } = require("pg");
 
 const pool = new Pool(
   process.env.DATABASE_URL
     ? {
-        // Production: Neon PostgreSQL via connection string
         connectionString: process.env.DATABASE_URL,
         ssl: { rejectUnauthorized: false },
       }
     : {
-        // Local development: hardcoded credentials
         user: "postgres",
         host: "localhost",
         database: "placement_cell",
@@ -22,7 +19,6 @@ const pool = new Pool(
       }
 );
 
-// 🔍 Explicit connection test (IMPORTANT)
 (async () => {
   try {
     await pool.query("SELECT 1");
