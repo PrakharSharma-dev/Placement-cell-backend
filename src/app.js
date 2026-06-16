@@ -45,6 +45,25 @@ app.use("/api/jobs", jobRoutes);
 app.get("/", (req, res) => {
   res.json({ status: "Placement Cell Backend Running" });
 });
+// Manual scrape trigger
+app.get("/api/trigger-scrape", async (req, res) => {
+  try {
+    const { fetchAll } = require("./ingestion/fetcher");
+    const { processAndSave } = require("./ingestion/processor");
 
+    console.log("Starting manual scrape...");
+    const listings = await fetchAll();
+    console.log(`Fetched ${listings.length} listings`);
+    await processAndSave(listings);
+
+    res.json({
+      status: "success",
+      message: `Scraped and saved ${listings.length} listings`
+    });
+  } catch (err) {
+    console.error("Scrape failed:", err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
 // Scheduler is handled in server.js only - NOT here
 module.exports = app;
