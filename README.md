@@ -36,7 +36,7 @@ backend/
 
 ---
 
-## 🧠 Core Features
+## Core Features
 
 ### 1. Companies Dashboard Support
 - List all companies
@@ -69,7 +69,7 @@ backend/
 
 ---
 
-## 🗄 Database Schema
+##  Database Schema
 
 PostgreSQL is used as the database.
 
